@@ -1,9 +1,11 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 class ConnectionListener {
     private boolean isStopped = false;
@@ -17,6 +19,7 @@ class ConnectionListener {
 
         while (!isStopped()) {
             Socket clientSocket;
+
             try {
                 clientSocket = serverSocket.accept();
             } catch (IOException e) {
@@ -26,7 +29,24 @@ class ConnectionListener {
                 }
                 throw new RuntimeException("Error accepting client connection", e);
             }
-            threadPool.execute(new RenderThread(clientSocket));
+
+            threadPool.execute(() -> {
+                try (
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8)
+                        );
+                        BufferedWriter out = new BufferedWriter(
+                                new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8)
+                        )
+                ) {
+                    String request = in.lines().collect(Collectors.joining("\n"));
+
+                    out.write("You passed " + request.length() + "chars\n");
+                    System.out.println("Passed " + request.length() + "chars");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
         threadPool.shutdown();
