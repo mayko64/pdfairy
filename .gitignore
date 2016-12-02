@@ -1,0 +1,11 @@
+/.idea/
+/target/
+/build/
+
+.DS_Store
+*.class
+*.jar
+*.swp
+*.iml
+*.log
+*.lua
