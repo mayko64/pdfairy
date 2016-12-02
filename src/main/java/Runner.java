@@ -53,6 +53,6 @@ public class Runner {
 
     private static void usage(Options options) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("pdfworker", options);
+        formatter.printHelp("pdfairy", options);
     }
 }

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.maxpay</groupId>
-    <artifactId>pdfworker</artifactId>
+    <artifactId>pdfairy</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
 
