@@ -1,0 +1,15 @@
+# PDF Rendering Service
+
+## Build
+
+    $ mvn build
+
+## Run
+
+    $ java -jar target/pdfairy-1.0.jar --host <host> --port <port> --threads <threadsNumber>
+
+## Use
+
+First save XML and XSLT documents, then run:
+
+    $ echo '{"xml":"/path/to.xml","xsl":"/path/to.xsl","pdf":"/path/to.pdf"}' | nc <host> <port>
