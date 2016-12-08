@@ -1,3 +1,5 @@
+package com.maxpay.pdfairy;
+
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class Runner {
             int port = Integer.parseInt(cmd.getOptionValue("port"));
             int threads = Integer.parseInt(cmd.getOptionValue("threads", "10"));
 
-            new ConnectionListener().listen(threads, host, port);
+            new SocketListener(host, port).listen(threads);
         } catch (ParseException e) {
             System.err.println(e.getMessage());
             usage(options);
